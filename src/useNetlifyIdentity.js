@@ -56,6 +56,10 @@ const useNetlifyIdentity = ({ url: _url }) => {
 
   // Thin wrapper around useState setter to inject expires_at
   const setGoTrueToken = useCallback(goTrueToken => {
+    if (goTrueToken.error) {
+      logout()
+      return;
+    }
     const expires_at = new Date(JSON.parse(window.atob(goTrueToken.access_token.split('.')[1])).exp * 1000)
     _setGoTrueToken({ ...goTrueToken, expires_at })
   }, [])
