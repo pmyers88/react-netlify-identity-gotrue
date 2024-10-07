@@ -57,7 +57,7 @@ const useNetlifyIdentity = ({ url: _url }) => {
   // Thin wrapper around useState setter to inject expires_at
   const setGoTrueToken = useCallback(goTrueToken => {
     console.log(goTrueToken);
-    if (goTrueToken.error || !goTrueToken) {
+    if (!goTrueToken.access_token) {
       logout()
       return;
     }
